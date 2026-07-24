@@ -99,7 +99,7 @@ void Chunk::updateGeometry() {
             
             if (blocks[index] == BlockType::Air && walls[index] != WallType::None) {
                 const auto& data = WallRegistry[static_cast<size_t>(walls[index])];
-                addTileToMesh(x, y, data.m_texIndex, sf::Color(100, 100, 100));
+                addTileToMesh(x, y, data.m_texIndex, sf::Color(175, 175, 175));
             }
         }
     }

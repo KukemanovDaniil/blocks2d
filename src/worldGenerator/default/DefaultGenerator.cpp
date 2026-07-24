@@ -30,12 +30,12 @@ void DefaultGenerator::generateLandscape(Chunk& chunk, int chunkX) {
         const unsigned int surfaceY = calculateSurfaceY(globalX);
         
         for (unsigned int y = surfaceY + 1; y < CHUNK_H; ++y) {
-            
+           chunk.setLocalBlock(x, y, BlockType::Basalt);
             if (y >= CHUNK_H - 3) {
                 chunk.setLocalBlock(x, y, BlockType::Basalt);
                 chunk.setLocalWall(x, y, WallType::Basalt);
             }
-            else if (y >= CHUNK_H - 29) {
+            else if (y >= CHUNK_H - 50) {
                 chunk.setLocalBlock(x, y, BlockType::Andesite);
                 chunk.setLocalWall(x, y, WallType::Andesite);
             }

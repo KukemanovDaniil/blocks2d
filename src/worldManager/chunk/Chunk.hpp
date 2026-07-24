@@ -3,8 +3,8 @@
 #include <vector>
 #include "src/worldManager/TileType/TileType.hpp"
 
-constexpr unsigned int CHUNK_W = 16;
-constexpr unsigned int CHUNK_H = 256;
+constexpr unsigned int CHUNK_W = 32;
+constexpr unsigned int CHUNK_H = 512;
 constexpr unsigned int CHUNK_SIZE = CHUNK_W * CHUNK_H;
 
 constexpr unsigned int TILE_SIZE = 32;
