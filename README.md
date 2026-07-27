@@ -8,7 +8,7 @@ This is my pet project to create a 2D sandbox game. It runs on its own custom en
 * **W, A, S, D** - Player movement
 * **Left click** - Place block
 * **Right click** - Break block
-* **Mouse wheel** - Zoom
+* **Mouse wheel** - Change zoom
 * **F8** - Close game
 
 ## Tech Stack
