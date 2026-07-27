@@ -2,13 +2,14 @@
 
 #include <unordered_map>
 #include "src/worldManager/chunk/Chunk.hpp"
-#include "src/player/Player.hpp"
 #include "src/camera/Camera.hpp"
 #include <print>
 #include <SFML/OpenGL.hpp>
 #include "src/core/Config.hpp"
 #include "src/math/isChunkVisible/IsChunkVisible.hpp"
 #include <cmath>
+
+class Player;
 
 class WorldManager {
 public:

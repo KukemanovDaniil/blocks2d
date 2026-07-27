@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+class WorldManager;
+
 class Player {
 public:
     Player();
@@ -14,10 +16,15 @@ public:
     void setSpeed(float speed) noexcept { m_speed = speed; }
 
     // OTHER
+    void handleEvent(const sf::Event& event, sf::RenderWindow& window, WorldManager& worldManager) noexcept;
     void update(float deltaTime) noexcept;
     void interpolate(float interpolationFactor) noexcept;
     
     void draw(sf::RenderTarget& target) const;
+
+    // MEHANICS
+    void placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept;
+    void breakTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept;
 private:
     sf::Vector2f m_previousPosition;
     sf::Vector2f m_position;

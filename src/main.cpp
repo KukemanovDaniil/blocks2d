@@ -52,11 +52,21 @@ int main() {
                 window.close();
             }
 
+            if (const auto* scrollEvent = event->getIf<sf::Event::MouseWheelScrolled>()) {
+                if (scrollEvent->wheel == sf::Mouse::Wheel::Vertical) {
+            
+                float zoomFactor = 1.0f - (scrollEvent->delta * 0.1f); 
+            
+                camera.setZoom(camera.getZoom() * zoomFactor);
+            }
+        }
+
             if (const auto* keyPressedEvent = event->getIf<sf::Event::KeyPressed>()) {
                 if (keyPressedEvent->code == sf::Keyboard::Key::F8) {
                     window.close();
                 }
             }
+            player.handleEvent(*event, window, worldManager);
         }
 
         while (tickManager.checkTick()) {
@@ -65,16 +75,6 @@ int main() {
 
         float alpha = tickManager.getInterpolationFactor();
         player.interpolate(alpha);
-
-
-        float zoomSpeed = 3.5f; 
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::O)) {
-            camera.setZoom(camera.getZoom() - (zoomSpeed * camera.getZoom() * deltaTime));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::I)) {
-            camera.setZoom(camera.getZoom() + (zoomSpeed * camera.getZoom() * deltaTime));
-        }
 
         camera.updateLerp(player.getPosition(), deltaTime);
 

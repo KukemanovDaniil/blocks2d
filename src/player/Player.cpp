@@ -1,11 +1,45 @@
 #include <SFML/Graphics.hpp>
 #include "src/player/Player.hpp"
+#include "src/worldManager/WorldManager.hpp"
 #include <cmath>
 
 Player::Player() {
     m_shape.setSize({WIDTH, HEIGHT});
     m_shape.setOrigin({WIDTH / 2.0f, HEIGHT / 2.0f});
     m_shape.setFillColor(sf::Color::Red);
+}
+
+void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+
+    int blockX = static_cast<int>(std::floor(worldPos.x / 32.0f));
+    int blockY = static_cast<int>(std::floor(worldPos.y / 32.0f));
+
+    worldManager.setGlobalBlock(blockX, blockY, BlockType::Limestone);
+}
+
+void Player::breakTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
+    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+
+    int blockX = static_cast<int>(std::floor(worldPos.x / 32.0f));
+    int blockY = static_cast<int>(std::floor(worldPos.y / 32.0f));
+
+    worldManager.setGlobalBlock(blockX, blockY, BlockType::Air);
+}
+
+void Player::handleEvent(const sf::Event& event, sf::RenderWindow& window, WorldManager& worldManager) noexcept {
+    if (event.is<sf::Event::MouseButtonPressed>()) {
+        auto* mouseEvent = event.getIf<sf::Event::MouseButtonPressed>();
+        
+        if (mouseEvent->button == sf::Mouse::Button::Left) {
+            placeTile(window, worldManager);
+        }
+        if (mouseEvent->button == sf::Mouse::Button::Right) {
+            breakTile(window, worldManager);
+        }
+    }
 }
 
 void Player::update(float deltaTime) noexcept {

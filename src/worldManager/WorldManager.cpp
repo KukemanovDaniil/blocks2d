@@ -1,6 +1,7 @@
 #include "src/worldManager/WorldManager.hpp"
 #include "src/worldGenerator/default/DefaultGenerator.hpp"
 #include "src/math/random/RandomInRange.hpp"
+#include "src/player/Player.hpp"
 #include <print>
 
 void WorldManager::createWorld(int size) {
