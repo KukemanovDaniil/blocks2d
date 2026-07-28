@@ -10,8 +10,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-
-
 include(FetchContent)
 
 FetchContent_Declare(
@@ -26,7 +24,18 @@ set(SFML_BUILD_NETWORK OFF CACHE INTERNAL "")
 
 FetchContent_MakeAvailable(SFML)
 
+FetchContent_Declare(
+    TGUI
+    GIT_REPOSITORY https://github.com/texus/TGUI
+    GIT_TAG        v1.x
+)
 
+set(TGUI_BUILD_EXAMPLES OFF CACHE INTERNAL "")
+set(TGUI_BUILD_TESTS OFF CACHE INTERNAL "")
+set(TGUI_BUILD_GUI_BUILDER OFF CACHE INTERNAL "")
+set(TGUI_BACKEND "SFML_GRAPHICS" CACHE INTERNAL "")
+
+FetchContent_MakeAvailable(TGUI)
 
 find_package(OpenGL REQUIRED)
 
@@ -44,10 +53,9 @@ target_link_libraries(Blocks2d PRIVATE
     sfml-graphics
     sfml-window
     sfml-system
+    tgui
     OpenGL::GL
-    )
-
-
+)
 
 add_custom_command(TARGET Blocks2d POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
