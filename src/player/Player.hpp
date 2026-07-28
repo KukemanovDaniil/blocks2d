@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "src/player/buildModeType/buildModeType.hpp"
 
 class WorldManager;
 
@@ -35,4 +36,6 @@ private:
     
     static constexpr float HEIGHT = 55.0f;
     static constexpr float WIDTH = 25.0f;
+
+    BuildModeType buildMode = BuildModeType::Block;
 };

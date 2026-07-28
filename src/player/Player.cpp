@@ -10,26 +10,52 @@ Player::Player() {
 }
 
 void Player::placeTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
-    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+    if (buildMode == BuildModeType::Block || buildMode == BuildModeType::Wall) {
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
 
-    int blockX = static_cast<int>(std::floor(worldPos.x / 32.0f));
-    int blockY = static_cast<int>(std::floor(worldPos.y / 32.0f));
+        int tileX = static_cast<int>(std::floor(worldPos.x / 32.0f));
+        int tileY = static_cast<int>(std::floor(worldPos.y / 32.0f));
 
-    worldManager.setGlobalBlock(blockX, blockY, BlockType::Limestone);
+        if (buildMode == BuildModeType::Block) {
+            worldManager.setGlobalBlock(tileX, tileY, BlockType::Limestone);
+        }
+        else {
+            worldManager.setGlobalWall(tileX, tileY, WallType::Limestone);
+        } 
+    }
 }
 
 void Player::breakTile(sf::RenderWindow& window, WorldManager& worldManager) noexcept {
-    sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-    sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
+    if (buildMode == BuildModeType::Block || buildMode == BuildModeType::Wall) {
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+        sf::Vector2f worldPos = window.mapPixelToCoords(mousePos);
 
-    int blockX = static_cast<int>(std::floor(worldPos.x / 32.0f));
-    int blockY = static_cast<int>(std::floor(worldPos.y / 32.0f));
+        int tileX = static_cast<int>(std::floor(worldPos.x / 32.0f));
+        int tileY = static_cast<int>(std::floor(worldPos.y / 32.0f));
 
-    worldManager.setGlobalBlock(blockX, blockY, BlockType::Air);
+        if (buildMode == BuildModeType::Block) {
+            worldManager.setGlobalBlock(tileX, tileY, BlockType::Air);
+        }
+        else {
+            worldManager.setGlobalWall(tileX, tileY, WallType::None);
+        } 
+    }
 }
 
 void Player::handleEvent(const sf::Event& event, sf::RenderWindow& window, WorldManager& worldManager) noexcept {
+    if (event.is<sf::Event::KeyPressed>()) {
+        auto* keyEvent = event.getIf<sf::Event::KeyPressed>();
+        
+        if (keyEvent->scancode == sf::Keyboard::Scancode::R) {
+            if (buildMode == BuildModeType::Block) {
+                buildMode = BuildModeType::Wall;
+            } else if (buildMode == BuildModeType::Wall) {
+                buildMode = BuildModeType::Block;
+            }
+        }
+    }
+
     if (event.is<sf::Event::MouseButtonPressed>()) {
         auto* mouseEvent = event.getIf<sf::Event::MouseButtonPressed>();
         
