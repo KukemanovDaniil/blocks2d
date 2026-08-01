@@ -27,7 +27,7 @@ FetchContent_MakeAvailable(SFML)
 FetchContent_Declare(
     TGUI
     GIT_REPOSITORY https://github.com/texus/TGUI
-    GIT_TAG        v1.x
+    GIT_TAG        1.x
 )
 
 set(TGUI_BUILD_EXAMPLES OFF CACHE INTERNAL "")

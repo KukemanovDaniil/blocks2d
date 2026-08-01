@@ -7,7 +7,7 @@
 DefaultGenerator::DefaultGenerator(int seed) {
     m_landscapeNoise.SetSeed(seed);
     m_landscapeNoise.SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
-    m_landscapeNoise.SetFrequency(0.007f);
+    m_landscapeNoise.SetFrequency(0.005f);
 
     m_cavesNoise.SetSeed(seed + 1); 
     m_cavesNoise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
